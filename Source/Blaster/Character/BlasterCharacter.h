@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 #include "BlasterCharacter.generated.h"
 
 class UCameraComponent;
@@ -16,13 +18,30 @@ class BLASTER_API ABlasterCharacter : public ACharacter
 
 public:
 	ABlasterCharacter();
-
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
 	virtual void BeginPlay() override;
+
+	/** Input **/
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputMappingContext* DefaultMappingContext;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* MoveAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* LookAction;
+
+	UFUNCTION()
+	void Move(const FInputActionValue& Value);
+
+	UFUNCTION()
+	void Look(const FInputActionValue& Value);
+	
 
 private:
 
